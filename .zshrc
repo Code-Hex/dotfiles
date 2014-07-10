@@ -30,6 +30,17 @@ function web_search {
   open "${url}${query}"
 }
 
+#起動時にfortuneでcowsay
+function random_cowsay() {
+    fortune -s -n 100 | cowsay -f `ls -1 /usr/local/Cellar/cowsay/3.03/share/cows/ | sed s/\.cow// | tail -n +\`echo $(( 1 + (\\\`od -An -N2 -i /dev/random\\\`) % (\\\`ls -1 /usr/local/Cellar/cowsay/3.03/share/cows/ | wc -l\\\`) ))\` | head -1`
+}
+if which fortune cowsay >/dev/null; then
+    while :
+    do
+        random_cowsay 2>/dev/null && break
+    done
+fi && unset -f random_cowsay
+
 # googleで検索
 function google () {
   web_search "https://www.google.co.jp/search?&q=" "+" "" $@
@@ -45,6 +56,14 @@ function stack () {
   web_search "http://stackoverflow.com/search?q=" "+" "" $@
 }
 
+# xvideosで検索
+ function xvideos () {
+  web_search "http://www.xvideos.com/?k=" "+" "" $@
+}
+
+# 補間
+autoload -U compinit
+compinit
 
 # 色を使用出来るようにする
 autoload -Uz colors
@@ -64,9 +83,10 @@ setopt no_flow_control
 setopt interactive_comments
 
 # ディレクトリ名だけでcdする
-# setopt auto_cd
+setopt auto_cd
+function chpwd () { ls -G }
 
-# cd したら自動的にpushdする
+# cd したら自動的にpushdする(cdの履歴)
 setopt auto_pushd
 
 # 重複したディレクトリを追加しない
