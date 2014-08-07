@@ -3,6 +3,19 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
+#起動時にfortuneでcowsay
+function random_cowsay() {
+   fortune -s -n 100 | cowsay -f `ls -1 /usr/local/Cellar/cowsay/3.03/share/cows/ | sed s/\.cow// | tail -n +\`echo $(( 1 + (\\\`od -An -N2 -i /dev/random\\\`) % (\\\`ls -1 /usr/local/Cellar/cowsay/3.03/share/cows/ | wc -l\\\`) ))\` |  head -1` | toilet --gay -f term
+}
+
+if which fortune cowsay >/dev/null; then
+    while :
+    do
+        random_cowsay 2>/dev/null && break
+    done
+fi && unset -f random_cowsay
+
+
 # プロンプト
 # 1行表示
 # PROMPT="%~ %# "
@@ -10,6 +23,13 @@ PROMPT="%n@%m%  %F{red}[%f%~%F{red}]%f %# "
 
 # 環境変数
 export LANG=ja_JP.UTF-8
+
+# typoしたらDeath.plの起動
+function command_not_found_handler(){
+  perl /Users/Codehex/Death.pl > /dev/null 2>&1 &
+  echo "Typo has been tweeted. "
+  return 127
+}
 
 # 検索サイト クエリ で検索可能
 function web_search {
@@ -28,25 +48,6 @@ function web_search {
   done
 
   open "${url}${query}"
-}
-
-#起動時にfortuneでcowsay
-function random_cowsay() {
-   fortune -s -n 100 | cowsay -f `ls -1 /usr/local/Cellar/cowsay/3.03/share/cows/ | sed s/\.cow// | tail -n +\`echo $(( 1 + (\\\`od -An -N2 -i /dev/random\\\`) % (\\\`ls -1 /usr/local/Cellar/cowsay/3.03/share/cows/ | wc -l\\\`) ))\` |  head -1` | toilet --gay -f term
-}
-
-if which fortune cowsay >/dev/null; then
-    while :
-    do
-        random_cowsay 2>/dev/null && break
-    done
-fi && unset -f random_cowsay
-
-# typoしたらDeath.plの起動
-function command_not_found_handler() {
-  perl /Users/Codehex/Death.pl > /dev/null 2>&1 &
-  echo "Typo has been tweeted. "
-  return 127
 }
 
 # googleで検索
@@ -79,7 +80,7 @@ colors
 
 # オプション
 # 日本語ファイル名を表示可能にする
-setopt 
+setopt extended_glob
 
 # beep を無効にする
 setopt no_beep
@@ -129,3 +130,12 @@ alias remem='du -sx / &> /dev/null & sleep 25 && kill $!'
 
 #plenv
 if which plenv > /dev/null; then eval "$(plenv init -)"; fi
+
+#jman
+alias jman='env LANG=ja_JP.UTF-8 man'
+
+#groff
+alias groff='/usr/local/bin/groff'
+
+#python
+export PATH=/usr/local/share/python:$PATH
