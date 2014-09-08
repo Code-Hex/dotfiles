@@ -6,7 +6,7 @@ SAVEHIST=1000000
 # プロンプト
 # 1行表示
 # PROMPT="%~ %# "
-PROMPT="%{${fg[red]}%}%n@%m%{${reset_color}%} [%~] %# "
+PROMPT="%n@%m%  %F{blue}[%f%~%F{blue}]%f %# "
 
 # 環境変数
 export LANG=ja_JP.UTF-8
@@ -85,7 +85,7 @@ setopt interactive_comments
 
 # ディレクトリ名だけでcdする
 setopt auto_cd
-function chpwd () { ls -G }
+function chpwd () { ls -aG }
 
 # cd したら自動的にpushdする(cdの履歴)
 setopt auto_pushd
@@ -119,3 +119,9 @@ setopt extended_glob
 
 #remem
 alias remem='du -sx / &> /dev/null & sleep 25 && kill $!'
+
+#plenv
+if which plenv > /dev/null; then eval "$(plenv init -)"; fi
+
+#シェルの再起動
+alias restart= 'exec -l $SHELL'
