@@ -85,7 +85,7 @@ setopt interactive_comments
 
 # ディレクトリ名だけでcdする
 setopt auto_cd
-function chpwd () { ls -aG }
+function chpwd () { ls -aG -F -T 0 }
 
 # cd したら自動的にpushdする(cdの履歴)
 setopt auto_pushd
@@ -121,7 +121,14 @@ setopt extended_glob
 alias remem='du -sx / &> /dev/null & sleep 25 && kill $!'
 
 #plenv
-if which plenv > /dev/null; then eval "$(plenv init -)"; fi
+export PATH="$HOME/.plenv/bin:$PATH"
+eval "$(plenv init -)"
 
 #シェルの再起動
-alias restart= 'exec -l $SHELL'
+alias restart='exec -l $SHELL'
+
+#ls
+alias ls='ls -aG -F -T 0'
+
+#perl
+alias perl='/home/codehex/.plenv/shims/perl'

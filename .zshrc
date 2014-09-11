@@ -93,7 +93,7 @@ setopt interactive_comments
 
 # ディレクトリ名だけでcdする
 setopt auto_cd
-function chpwd () { ls -aG }
+function chpwd () { ls -aG -F -T }
 
 # cd したら自動的にpushdする(cdの履歴)
 setopt auto_pushd
@@ -141,4 +141,7 @@ alias groff='/usr/local/bin/groff'
 export PATH=/usr/local/share/python:$PATH
 
 #シェルの再起動
-alias restart= 'exec -l $SHELL'
+alias restart='exec zsh -l'
+
+#ls
+alias ls='ls -aG -F -T'
