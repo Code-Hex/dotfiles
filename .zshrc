@@ -9,12 +9,13 @@ function random_cowsay() {
 }
 
 if which fortune cowsay >/dev/null; then
+    (afplay coin.wav &)
+    echo $(date +%Y\ %m\ %d\ %H:%M:%S) | toilet --gay -f term
     while :
     do
         random_cowsay 2>/dev/null && break
     done
 fi && unset -f random_cowsay
-
 
 # プロンプト
 # 1行表示
@@ -23,13 +24,6 @@ PROMPT="%n@%m%  %F{red}[%f%~%F{red}]%f %# "
 
 # 環境変数
 export LANG=ja_JP.UTF-8
-
-# typoしたらDeath.plの起動
-function command_not_found_handler(){
-  perl /Users/Codehex/Death.pl > /dev/null 2>&1 &
-  echo "Typo has been tweeted. "
-  return 127
-}
 
 # 検索サイト クエリ で検索可能
 function web_search {
