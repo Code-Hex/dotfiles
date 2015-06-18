@@ -139,3 +139,10 @@ alias restart='exec zsh -l'
 
 #ls
 alias ls='ls -aG -F -T'
+
+#coin at enter
+#autoload -Uz add-zsh-hook
+#function coin(){
+#    (afplay coin.wav &)
+#}
+#add-zsh-hook precmd coin
