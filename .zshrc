@@ -146,3 +146,13 @@ alias ls='ls -aG -F -T'
 #    (afplay coin.wav &)
 #}
 #add-zsh-hook precmd coin
+
+#function jump(){
+#    (afplay $HOME/jump.wav &)
+#}
+#add-zsh-hook chpwd jump
+
+#function die(){
+#    (afplay $HOME/exit.wav &)
+#}
+#add-zsh-hook zshexit die
