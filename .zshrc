@@ -123,7 +123,8 @@ setopt extended_glob
 alias remem='du -sx / &> /dev/null & sleep 25 && kill $!'
 
 #plenv
-if which plenv > /dev/null; then eval "$(plenv init -)"; fi
+export PATH="$HOME/.plenv/bin:$PATH"
+eval "$(plenv init -)"
 
 #jman
 alias jman='env LANG=ja_JP.UTF-8 man'
@@ -132,7 +133,7 @@ alias jman='env LANG=ja_JP.UTF-8 man'
 alias groff='/usr/local/bin/groff'
 
 #python
-export PATH=/usr/local/share/python:$PATH
+#export PATH=/usr/local/share/python:$PATH
 
 #シェルの再起動
 alias restart='exec zsh -l'
@@ -156,3 +157,5 @@ alias ls='ls -aG -F -T'
 #    (afplay $HOME/exit.wav &)
 #}
 #add-zsh-hook zshexit die
+
+#alias reply='PERL_RL=Caroline reply'
