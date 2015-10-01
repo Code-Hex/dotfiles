@@ -65,6 +65,9 @@ function stack () {
 }
 
 # 補間
+plugins=(github cpanm brew ps)
+fpath=(/path/to/homebrew/share/zsh-completions $fpath)
+
 autoload -U compinit
 compinit
 
@@ -159,3 +162,4 @@ alias ls='ls -aG -F -T'
 #add-zsh-hook zshexit die
 
 #alias reply='PERL_RL=Caroline reply'
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
