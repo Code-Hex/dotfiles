@@ -9,7 +9,7 @@ function random_cowsay() {
 }
 
 if which fortune cowsay >/dev/null; then
-    (afplay coin.wav &)
+    (afplay $HOME/coin.wav &)
     echo $(date +%Y\ %m\ %d\ %H:%M:%S) | toilet --gay -f term
     while :
     do
@@ -57,11 +57,6 @@ function github () {
 # stackoverflowで検索
 function stack () {
   web_search "http://stackoverflow.com/search?q=" "+" "" $@
-}
-
-# xvideosで検索
- function xvideos () {
-  web_search "http://www.xvideos.com/?k=" "+" "" $@
 }
 
 # 補間
@@ -142,7 +137,9 @@ alias groff='/usr/local/bin/groff'
 alias restart='exec zsh -l'
 
 #ls
-alias ls='ls -aG -F -T'
+eval $(gdircolors ~/dircolors.256dark)
+#alias ls='ls -aG -F -T'
+alias ls='gls -aG -F -T 0 --color=auto'
 
 #coin at enter
 #autoload -Uz add-zsh-hook
@@ -163,3 +160,13 @@ alias ls='ls -aG -F -T'
 
 #alias reply='PERL_RL=Caroline reply'
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+# You should check using vim version
+alias vim='/usr/local/Cellar/vim/7.4.903/bin/vim'
+alias vi='/usr/local/Cellar/vim/7.4.903/bin/vim'
+
+export THEOS=/opt/theos
+
+#go
+export GOPATH=$HOME/Desktop/go
+export PATH=$PATH:$GOPATH/bin
