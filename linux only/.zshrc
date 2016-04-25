@@ -8,18 +8,6 @@ SAVEHIST=1000000
 # PROMPT="%~ %# "
 PROMPT="%n@%m%  %F{blue}[%f%~%F{blue}]%f %# "
 
-#起動時にtoiletなfortuneでcowsay
-function random_cowsay() {
-   fortune -s -n 100 | cowsay -f `ls -1 /usr/share/cowsay/cows/ | sed s/\.cow// | tail -n +\`echo $(( 1 + (\\\`od -An -N2 -i /dev/random\\\`) % (\\\`ls -1 /usr/share/cowsay/cows/ | wc -l\\\`) ))\` |  head -1` | toilet --gay -f term
-}
-
-if which fortune cowsay >/dev/null; then
-    while :
-    do
-        random_cowsay 2>/dev/null && break
-    done
-fi && unset -f random_cowsay
-
 # 補間
 autoload -U compinit
 compinit
