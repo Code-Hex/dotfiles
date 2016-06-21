@@ -3,66 +3,6 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
-#起動時にfortuneでcowsay
-function random_cowsay() {
-   fortune -s -n 100 | cowsay -f `ls -1 /usr/local/Cellar/cowsay/3.03/share/cows/ | sed s/\.cow// | tail -n +\`echo $(( 1 + (\\\`od -An -N2 -i /dev/random\\\`) % (\\\`ls -1 /usr/local/Cellar/cowsay/3.03/share/cows/ | wc -l\\\`) ))\` |  head -1` | toilet --gay -f term
-}
-
-if which fortune cowsay >/dev/null; then
-    (afplay $HOME/coin.wav &)
-    echo $(date +%Y\ %m\ %d\ %H:%M:%S) | toilet --gay -f term
-    while :
-    do
-        random_cowsay 2>/dev/null && break
-    done
-fi && unset -f random_cowsay
-
-# プロンプト
-# 1行表示
-# PROMPT="%~ %# "
-PROMPT="%n@%m%  %F{red}[%f%~%F{red}]%f %# "
-
-# 環境変数
-export LANG=ja_JP.UTF-8
-
-# 検索サイト クエリ で検索可能
-function web_search {
-  local url=$1       && shift
-  local delimiter=$1 && shift
-  local prefix=$1    && shift
-  local query
-
-  while [ -n "$1" ]; do
-    if [ -n "$query" ]; then
-      query="${query}${delimiter}${prefix}$1"
-    else
-      query="${prefix}$1"
-    fi
-    shift
-  done
-
-  open "${url}${query}"
-}
-
-# googleで検索
-function google () {
-  web_search "https://www.google.co.jp/search?&q=" "+" "" $@
-}
-
-# githubで検索
-function github () {
-  web_search "https://github.com/search?type=Code&q=" "+" "" $@
-}
-
-# stackoverflowで検索
-function stack () {
-  web_search "http://stackoverflow.com/search?q=" "+" "" $@
-}
-
-# 補間
-plugins=(github cpanm brew ps)
-fpath=(/path/to/homebrew/share/zsh-completions $fpath)
-
 autoload -U compinit
 compinit
 
@@ -70,103 +10,155 @@ compinit
 autoload -Uz colors
 colors
 
-# オプション
-# 日本語ファイル名を表示可能にする
-setopt extended_glob
+setopt extended_glob # 高機能なワイルドカード展開を使用する
+setopt no_beep # beep を無効にする
+setopt no_flow_control # フローコントロールを無効にする
+setopt interactive_comments # '#' 以降をコメントとして扱う
+setopt auto_cd # ディレクトリ名だけでcdする
+setopt auto_pushd pushdtohome # cd したら自動的にpushdする(cdの履歴)
+setopt pushd_ignore_dups # 重複したディレクトリを追加しない
+setopt magic_equal_subst # = の後はパス名として補完する
+setopt share_history # 同時に起動したzshの間でヒストリを共有する
+setopt hist_ignore_all_dups # 同じコマンドをヒストリに残さない
+setopt hist_save_nodups # ヒストリファイルに保存するとき、すでに重複したコマンドがあったら古い方を削除する
+setopt hist_ignore_space # スペースから始まるコマンド行はヒストリに残さない
+setopt hist_reduce_blanks # ヒストリに保存するときに余分なスペースを削除する
+setopt auto_menu # 補完候補が複数あるときに自動的に一覧表示する
 
-# beep を無効にする
-setopt no_beep
+case ${OSTYPE} in
+    darwin*)
+        # For Mac
+        export LANG=ja_JP.UTF-8
 
-# フローコントロールを無効にする
-setopt no_flow_control
+        # Colorful Cowsay using fortune
+        function random_cowsay() {
+           fortune -s -n 100 | cowsay -f `ls -1 /usr/local/Cellar/cowsay/3.03/share/cows/ | sed s/\.cow// | tail -n +\`echo $(( 1 + (\\\`od -An -N2 -i /dev/random\\\`) % (\\\`ls -1 /usr/local/Cellar/cowsay/3.03/share/cows/ | wc -l\\\`) ))\` |  head -1` | toilet --gay -f term
+        }
+        if which fortune cowsay >/dev/null; then
+            (afplay $HOME/start_up.mp3 &)
+            echo $(date +%Y\ %m\ %d\ %H:%M:%S) | toilet --gay -f term
+            while :
+            do
+                random_cowsay 2>/dev/null && break
+            done
+        fi && unset -f random_cowsay
 
-# '#' 以降をコメントとして扱う
-setopt interactive_comments
+        PROMPT="%n@%m%  %F{red}[%f%~%F{red}]%f %# "
+        # 検索サイト クエリ で検索可能
+        function web_search {
+            local url=$1       && shift
+            local delimiter=$1 && shift
+            local prefix=$1    && shift
+            local query
 
-# ディレクトリ名だけでcdする
-setopt auto_cd
-function chpwd () { ls -aG -F -T }
+            while [ -n "$1" ]; do
+                if [ -n "$query" ]; then
+                    query="${query}${delimiter}${prefix}$1"
+                else
+                    query="${prefix}$1"
+                fi
+                shift
+            done
 
-# cd したら自動的にpushdする(cdの履歴)
-setopt auto_pushd
+            open "${url}${query}"
+        }
 
-# 重複したディレクトリを追加しない
-setopt pushd_ignore_dups
+        # googleで検索
+        function google() {
+            web_search "https://www.google.co.jp/search?&q=" "+" "" $@
+        }
 
-# = の後はパス名として補完する
-setopt magic_equal_subst
+        # githubで検索
+        function github() {
+            web_search "https://github.com/search?type=Code&q=" "+" "" $@
+        }
 
-# 同時に起動したzshの間でヒストリを共有する
-setopt share_history
+        # stackoverflowで検索
+        function stack() {
+            web_search "http://stackoverflow.com/search?q=" "+" "" $@
+        }
 
-# 同じコマンドをヒストリに残さない
-setopt hist_ignore_all_dups
+        # directory stack
+        DIRSTACKSIZE=9
+        DIRSTACKFILE=~/.zdirs
+        if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
+            dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
+            [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
+        fi
 
-# ヒストリファイルに保存するとき、すでに重複したコマンドがあったら古い方を削除する
-setopt hist_save_nodups
+        eval $(gdircolors ~/dircolors.256dark) # for ls
 
-# スペースから始まるコマンド行はヒストリに残さない
-setopt hist_ignore_space
+        # alias ls='ls -aG -F -T'
+        alias ls='gls -aG -F -T 0 --color=auto'
+        function chpwd () {
+            ls
+            print -l $PWD ${(u)dirstack} > $DIRSTACKFILE
+        }
 
-# ヒストリに保存するときに余分なスペースを削除する
-setopt hist_reduce_blanks
+        # 補間
+        plugins=(github cpanm brew ps)
+        fpath=(/path/to/homebrew/share/zsh-completions $fpath)
+        export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
-# 補完候補が複数あるときに自動的に一覧表示する
-setopt auto_menu
+        export PGDATA=/usr/local/var/postgres # postgresql
 
-# 高機能なワイルドカード展開を使用する
-setopt extended_glob
+        if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+        export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
-#remem
-alias remem='du -sx / &> /dev/null & sleep 25 && kill $!'
+        #docker-machine
+        eval $(docker-machine env docker-m)
 
-#plenv
+        #go
+        export GOPATH=$HOME/Desktop/go
+        export PATH=$PATH:$GOBIN
+
+        alias vim='/usr/local/bin/vim'
+        alias vi='/usr/local/bin/vim'
+        alias objdump='gobjdump' # objdump
+        alias man="env LANG=C man" # man
+        alias readelf='greadelf' # readelf
+        
+        alias subl='reattach-to-user-namespace subl' # subl for tmux
+        ;;
+    linux*)
+        # For linux(Debian)
+        export LANG=en_US.UTF-8
+        PROMPT="%n@%m%  %F{blue}[%f%~%F{blue}]%f %# "
+        alias ls='ls -aG -F -T 0'
+        function chpwd () { ls }
+        export GOPATH=$HOME/go
+        export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+        ;;
+esac
+
+export PATH=$HOME/.rakudobrew/bin:$PATH # rakudobrew
+
+alias restart='exec zsh -l' # restart zsh
+alias remem='du -sx / &> /dev/null & sleep 25 && kill $!' # remem
+
+# plenv
 export PATH="$HOME/.plenv/bin:$PATH"
 eval "$(plenv init -)"
 
-#jman
-alias jman='env LANG=ja_JP.UTF-8 man'
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
-#groff
-alias groff='/usr/local/bin/groff'
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
-#python
-#export PATH=/usr/local/share/python:$PATH
+# alias reply='PERL_RL=Caroline reply'
 
-#シェルの再起動
-alias restart='exec zsh -l'
+function prkill() {
+    ps aux | peco | awk '{print $2}' | xargs kill -15
+}
 
-#ls
-eval $(gdircolors ~/dircolors.256dark)
-#alias ls='ls -aG -F -T'
-alias ls='gls -aG -F -T 0 --color=auto'
-
-#coin at enter
-#autoload -Uz add-zsh-hook
-#function coin(){
-#    (afplay coin.wav &)
-#}
-#add-zsh-hook precmd coin
-
-#function jump(){
-#    (afplay $HOME/jump.wav &)
-#}
-#add-zsh-hook chpwd jump
-
-#function die(){
-#    (afplay $HOME/exit.wav &)
-#}
-#add-zsh-hook zshexit die
-
-#alias reply='PERL_RL=Caroline reply'
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-
-# You should check using vim version
-alias vim='/usr/local/Cellar/vim/7.4.903/bin/vim'
-alias vi='/usr/local/Cellar/vim/7.4.903/bin/vim'
-
-export THEOS=/opt/theos
-
-#go
-export GOPATH=$HOME/Desktop/go
-export PATH=$PATH:$GOPATH/bin
+function exec_peco_history() {
+    BUFFER=$(history -n 1 | tail -r | awk '!a[$0]++' | peco)
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+zle -N exec_peco_history
+bindkey '^r' exec_peco_history
