@@ -156,7 +156,7 @@ function prkill() {
 }
 
 function exec_peco_history() {
-    if tac >/dev/null 2>&1; then
+    if type tac >/dev/null 2>&1; then
         BUFFER=$(history -n 1 | tac | awk '!a[$0]++' | peco)
     else
         BUFFER=$(history -n 1 | tail -r | awk '!a[$0]++' | peco)
