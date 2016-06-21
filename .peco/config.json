@@ -1,0 +1,16 @@
+{
+    "Prompt": "🍣 ",
+    "Keymap": {
+        "C-l": "peco.ForwardChar",
+        "C-h": "peco.BackwardChar",
+        "C-k": "peco.SelectUp",
+        "C-j": "peco.SelectDown"
+    },
+    "Style": {
+        "Basic": ["on_default", "default"],
+        "SavedSelection": ["bold", "on_magenta", "white"],
+        "Selected": ["underline", "on_blue", "white"],
+        "Query": ["default"],
+        "Matched": ["reserve", "yellow"]
+	}
+}
