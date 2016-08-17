@@ -30,19 +30,6 @@ case ${OSTYPE} in
         # For Mac
         export LANG=ja_JP.UTF-8
 
-        # Colorful Cowsay using fortune
-        function random_cowsay() {
-           fortune -s -n 100 | cowsay -f `ls -1 /usr/local/Cellar/cowsay/3.03/share/cows/ | sed s/\.cow// | tail -n +\`echo $(( 1 + (\\\`od -An -N2 -i /dev/random\\\`) % (\\\`ls -1 /usr/local/Cellar/cowsay/3.03/share/cows/ | wc -l\\\`) ))\` |  head -1` | toilet --gay -f term
-        }
-        if which fortune cowsay >/dev/null; then
-            (afplay $HOME/start_up.mp3 &)
-            echo $(date +%Y\ %m\ %d\ %H:%M:%S) | toilet --gay -f term
-            while :
-            do
-                random_cowsay 2>/dev/null && break
-            done
-        fi && unset -f random_cowsay
-
         PROMPT="%n@%m%  %F{red}[%f%~%F{red}]%f %# "
         # 検索サイト クエリ で検索可能
         function web_search {
@@ -91,7 +78,7 @@ case ${OSTYPE} in
         # alias ls='ls -aG -F -T'
         alias ls='gls -aG -F -T 0 --color=auto'
         function chpwd () {
-            ls
+            gls -aG -F -T 0 --color=auto
             print -l $PWD ${(u)dirstack} > $DIRSTACKFILE
         }
 
@@ -104,9 +91,6 @@ case ${OSTYPE} in
 
         if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
         export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-
-        #docker-machine
-        eval $(docker-machine env docker-m)
 
         #go
         export GOPATH=$HOME/Desktop/go
@@ -125,29 +109,34 @@ case ${OSTYPE} in
         export LANG=en_US.UTF-8
         PROMPT="%n@%m%  %F{blue}[%f%~%F{blue}]%f %# "
         alias ls='ls -aG -F -T 0'
-        function chpwd () { ls }
+        function chpwd () { ls -aG -F -T 0 }
         export GOPATH=$HOME/go
         export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
         ;;
 esac
 
-export PATH=$HOME/.rakudobrew/bin:$PATH # rakudobrew
-
 alias restart='exec zsh -l' # restart zsh
+alias reload='source /$HOME/.zshrc'
 alias remem='du -sx / &> /dev/null & sleep 25 && kill $!' # remem
+alias gb='git branch'
+alias gcb='git checkout -b'
+alias gc='git checkout'
 
 # plenv
 export PATH="$HOME/.plenv/bin:$PATH"
 eval "$(plenv init -)"
 
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
-# rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+if which pyenv > /dev/null; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
 
 # alias reply='PERL_RL=Caroline reply'
 
@@ -166,3 +155,4 @@ function exec_peco_history() {
 }
 zle -N exec_peco_history
 bindkey '^r' exec_peco_history
+
