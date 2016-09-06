@@ -91,7 +91,7 @@ case ${OSTYPE} in
         # alias ls='ls -aG -F -T'
         alias ls='gls -aG -F -T 0 --color=auto'
         function chpwd () {
-            ls
+            gls -aG -F -T 0 --color=auto
             print -l $PWD ${(u)dirstack} > $DIRSTACKFILE
         }
 
@@ -109,8 +109,12 @@ case ${OSTYPE} in
         eval $(docker-machine env docker-m)
 
         #go
+        export GOROOT=/usr/local/opt/go/libexec
         export GOPATH=$HOME/Desktop/go
-        export PATH=$PATH:$GOBIN
+        export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
+        # sublime-text3
+        export PATH=/Applications/Sublime\ Text.app/Contents/SharedSupport/bin:$PATH
 
         alias vim='/usr/local/bin/vim'
         alias vi='/usr/local/bin/vim'
@@ -156,13 +160,11 @@ function prkill() {
 }
 
 function exec_peco_history() {
-    if type tac >/dev/null 2>&1; then
-        BUFFER=$(history -n 1 | tac | awk '!a[$0]++' | peco)
-    else
-        BUFFER=$(history -n 1 | tail -r | awk '!a[$0]++' | peco)
-    fi
+    BUFFER=$(history -n 1 | tail -r | awk '!a[$0]++' | peco)
     CURSOR=$#BUFFER
     zle reset-prompt
 }
 zle -N exec_peco_history
 bindkey '^r' exec_peco_history
+
+export COVERALLS_TOKEN="BBparxY3z6NoM1GiukCARTHVuAE5i1sKY"
