@@ -10,25 +10,38 @@ compinit
 autoload -Uz colors
 colors
 
-setopt extended_glob # 高機能なワイルドカード展開を使用する
-setopt no_beep # beep を無効にする
-setopt no_flow_control # フローコントロールを無効にする
-setopt interactive_comments # '#' 以降をコメントとして扱う
-setopt auto_cd # ディレクトリ名だけでcdする
+setopt extended_glob          # 高機能なワイルドカード展開を使用する
+setopt no_beep                # beep を無効にする
+setopt no_flow_control        # フローコントロールを無効にする
+setopt interactive_comments   # '#' 以降をコメントとして扱う
+setopt auto_cd                # ディレクトリ名だけでcdする
 setopt auto_pushd pushdtohome # cd したら自動的にpushdする(cdの履歴)
-setopt pushd_ignore_dups # 重複したディレクトリを追加しない
-setopt magic_equal_subst # = の後はパス名として補完する
-setopt share_history # 同時に起動したzshの間でヒストリを共有する
-setopt hist_ignore_all_dups # 同じコマンドをヒストリに残さない
-setopt hist_save_nodups # ヒストリファイルに保存するとき、すでに重複したコマンドがあったら古い方を削除する
-setopt hist_ignore_space # スペースから始まるコマンド行はヒストリに残さない
-setopt hist_reduce_blanks # ヒストリに保存するときに余分なスペースを削除する
-setopt auto_menu # 補完候補が複数あるときに自動的に一覧表示する
+setopt pushd_ignore_dups      # 重複したディレクトリを追加しない
+setopt magic_equal_subst      # = の後はパス名として補完する
+setopt share_history          # 同時に起動したzshの間でヒストリを共有する
+setopt hist_ignore_all_dups   # 同じコマンドをヒストリに残さない
+setopt hist_save_nodups       # ヒストリファイルに保存するとき、すでに重複したコマンドがあったら古い方を削除する
+setopt hist_ignore_space      # スペースから始まるコマンド行はヒストリに残さない
+setopt hist_reduce_blanks     # ヒストリに保存するときに余分なスペースを削除する
+setopt auto_menu              # 補完候補が複数あるときに自動的に一覧表示する
 
 case ${OSTYPE} in
     darwin*)
         # For Mac
         export LANG=ja_JP.UTF-8
+
+        # Colorful Cowsay using fortune
+        function random_cowsay() {
+           fortune -s -n 100 | cowsay -f `ls -1 /usr/local/Cellar/cowsay/3.03/share/cows/ | sed s/\.cow// | tail -n +\`echo $(( 1 + (\\\`od -An -N2 -i /dev/random\\\`) % (\\\`ls -1 /usr/local/Cellar/cowsay/3.03/share/cows/ | wc -l\\\`) ))\` |  head -1` | toilet --gay -f term
+        }
+        if which fortune cowsay >/dev/null; then
+            (afplay $HOME/start_up.mp3 &)
+            echo $(date +%Y\ %m\ %d\ %H:%M:%S) | toilet --gay -f term
+            while :
+            do
+                random_cowsay 2>/dev/null && break
+            done
+        fi && unset -f random_cowsay
 
         PROMPT="%n@%m%  %F{red}[%f%~%F{red}]%f %# "
         # 検索サイト クエリ で検索可能
@@ -92,6 +105,9 @@ case ${OSTYPE} in
         if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
         export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
+        #docker-machine
+        eval $(docker-machine env docker-m)
+
         #go
         export GOROOT=/usr/local/opt/go/libexec
         export GOPATH=$HOME/Desktop/go
@@ -107,54 +123,68 @@ case ${OSTYPE} in
         alias readelf='greadelf' # readelf
         
         alias subl='reattach-to-user-namespace subl' # subl for tmux
+
+        # suffix aliases
+        alias -s {pdf,png,jpg,bmp,PDF,PNG,JPG,BMP}='open -a Preview' # like ./filename.pdf
+        alias -s html='open -a Google\ Chrome' # like ./page.html
+
         ;;
     linux*)
         # For linux(Debian)
         export LANG=en_US.UTF-8
         PROMPT="%n@%m%  %F{blue}[%f%~%F{blue}]%f %# "
         alias ls='ls -aG -F -T 0'
-        function chpwd () { ls -aG -F -T 0 }
+        function chpwd () { ls }
         export GOPATH=$HOME/go
         export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
         ;;
 esac
 
-alias restart='exec zsh -l' # restart zsh
-alias reload='source /$HOME/.zshrc'
-alias remem='du -sx / &> /dev/null & sleep 25 && kill $!' # remem
-alias gb='git branch'
-alias gcb='git checkout -b'
-alias gc='git checkout'
+export PATH=$HOME/.rakudobrew/bin:$PATH # rakudobrew
 
-# coverall
-export COVERALLS_TOKEN="BBparxY3z6NoM1GiukCARTHVuAE5i1sKY"
+alias restart='exec zsh -l' # restart zsh
+alias remem='du -sx / &> /dev/null & sleep 25 && kill $!' # remem
 
 # plenv
 export PATH="$HOME/.plenv/bin:$PATH"
 eval "$(plenv init -)"
 
-# rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-if which pyenv > /dev/null; then
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-fi
+eval "$(pyenv init -)"
+
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
 # alias reply='PERL_RL=Caroline reply'
 
-function prkill() {
-    ps aux | peco | awk '{print $2}' | xargs kill -15
-}
+if which peco >/dev/null; then
 
-function exec_peco_history() {
-    BUFFER=$(history -n 1 | tail -r | awk '!a[$0]++' | peco)
-    CURSOR=$#BUFFER
-    zle reset-prompt
-}
-zle -N exec_peco_history
-bindkey '^r' exec_peco_history
+    if which ghq >/dev/null; then
+        function peco-ghq() {
+            local selected=$(ghq list -p | peco)
+            if [ -n "$selected" ]; then
+                BUFFER="cd ${selected}"
+                zle accept-line
+            fi
+        }
+        zle -N peco-ghq
+        bindkey '^]' peco-ghq
+    fi
+
+    function prkill() {
+        ps aux | peco | awk '{print $2}' | xargs kill -15
+    }
+
+    function exec_peco_history() {
+        BUFFER=$(history -n 1 | tail -r | awk '!a[$0]++' | peco)
+        CURSOR=$#BUFFER
+        zle reset-prompt
+    }
+    zle -N exec_peco_history
+    bindkey '^r' exec_peco_history
+fi
+
+export COVERALLS_TOKEN="BBparxY3z6NoM1GiukCARTHVuAE5i1sKY"
