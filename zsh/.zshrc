@@ -105,16 +105,20 @@ case ${OSTYPE} in
         if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
         export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
-        #docker-machine
+        # docker-machine
         eval $(docker-machine env docker-m)
 
-        #go
+        # go
         export GOROOT=/usr/local/opt/go/libexec
         export GOPATH=$HOME/Desktop/go
         export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
+        # openssl
+        export OPENSSL_INCLUDE="/usr/local/opt/openssl/include"
+        export OPENSSL_LIB="/usr/local/opt/openssl/lib"
+
         # sublime-text3
-        export PATH=/Applications/Sublime\ Text.app/Contents/SharedSupport/bin:$PATH
+        # export PATH=/Applications/Sublime\ Text.app/Contents/SharedSupport/bin:$PATH
 
         alias vim='/usr/local/bin/vim'
         alias vi='/usr/local/bin/vim'
@@ -187,4 +191,4 @@ if which peco >/dev/null; then
     bindkey '^r' exec_peco_history
 fi
 
-export COVERALLS_TOKEN="BBparxY3z6NoM1GiukCARTHVuAE5i1sKY"
+export COVERALLS_TOKEN=""
