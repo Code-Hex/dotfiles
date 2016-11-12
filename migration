@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+set e
+
+ln -sf $(pwd)/hg/.hgrc $HOME
+ln -sf $(pwd)/peco/.peco $HOME
+ln -sf $(pwd)/vim/.vimrc $HOME
+ln -sf $(pwd)/vim/.vim $HOME
+ln -sf $(pwd)/zsh/.zshrc $HOME
+ln -sf $(pwd)/zsh/.zshenv $HOME
+ln -sf $(pwd)/gitconfig/.gitconfig $HOME

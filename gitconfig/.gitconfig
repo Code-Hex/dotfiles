@@ -2,7 +2,8 @@
     name = K
     email = x00.x7f@gmail.com
 [core]
-    editor = subl -w
+    editor = vim
+#    editor = subl -w
 [color]
     ui = true
 [filter "lfs"]
