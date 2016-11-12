@@ -105,9 +105,6 @@ case ${OSTYPE} in
         if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
         export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
-        # docker-machine
-        eval $(docker-machine env docker-m)
-
         # go
         export GOROOT=/usr/local/opt/go/libexec
         export GOPATH=$HOME/Desktop/go
