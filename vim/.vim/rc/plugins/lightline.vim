@@ -1,9 +1,7 @@
-" lightline起動コード
-" lightline {{{
 set laststatus=2
 
 let g:lightline = {
-        \ 'colorscheme': 'solarized',
+        \ 'colorscheme': 'Tomorrow_Night_Bright',
         \ 'mode_map': {'c': 'NORMAL'},
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
@@ -18,7 +16,8 @@ let g:lightline = {
         \   'fileencoding': 'LightLineFileencoding',
         \   'mode': 'LightLineMode'
         \ }
-        \ }
+      \ }
+
 
 function! LightLineModified()
     return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
@@ -62,4 +61,3 @@ endfunction
 function! LightLineMode()
     return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
-" }}}

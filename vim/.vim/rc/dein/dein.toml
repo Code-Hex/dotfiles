@@ -16,6 +16,9 @@ on_ft = 'help'
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
+hook_add = '''
+  source ~/.vim/rc/plugins/lightline.vim
+'''
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
@@ -27,4 +30,3 @@ on_ft = 'json'
 [[plugins]]
 repo = 'thinca/vim-ft-diff_fold'
 on_ft = 'diff'
-
