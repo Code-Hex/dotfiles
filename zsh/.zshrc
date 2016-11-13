@@ -141,6 +141,7 @@ case ${OSTYPE} in
         ;;
 esac
 
+export LESS='-g -i -M -R -S -W'
 export PATH=$HOME/.rakudobrew/bin:$PATH # rakudobrew
 
 alias restart='exec zsh -l' # restart zsh
@@ -148,16 +149,22 @@ alias remem='du -sx / &> /dev/null & sleep 25 && kill $!' # remem
 
 # plenv
 export PATH="$HOME/.plenv/bin:$PATH"
-eval "$(plenv init -)"
+if which plenv >/dev/null; then
+    eval "$(plenv init -)"
+fi
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+if which pyenv >/dev/null; then
+    eval "$(pyenv init -)"
+fi
 
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+if which rbenv >/dev/null; then
+    eval "$(rbenv init -)"
+fi
 
 # alias reply='PERL_RL=Caroline reply'
 
