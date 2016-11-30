@@ -12,3 +12,5 @@
     required = true
 [github]
     user = Code-Hex
+[http]
+	sslVerify = false
