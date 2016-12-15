@@ -11,3 +11,4 @@ ln -sf $(pwd)/zsh/.zshrc $HOME
 ln -sf $(pwd)/zsh/.zshenv $HOME
 ln -sf $(pwd)/gitconfig/.gitconfig $HOME
 ln -sf $(pwd)/gdb/.gdbinit $HOME
+echo "user CODEHEX\npassword " > $HOME/.pause
