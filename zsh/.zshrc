@@ -27,21 +27,19 @@ setopt auto_menu              # 補完候補が複数あるときに自動的に
 
 case ${OSTYPE} in
     darwin*)
+        cd $(head -n 1 $HOME/.zdirs)
+
         # For Mac
         export LANG=ja_JP.UTF-8
-
-        # Colorful Cowsay using fortune
-        function random_cowsay() {
-           fortune -s -n 100 | cowsay -f `ls -1 /usr/local/Cellar/cowsay/3.03/share/cows/ | sed s/\.cow// | tail -n +\`echo $(( 1 + (\\\`od -An -N2 -i /dev/random\\\`) % (\\\`ls -1 /usr/local/Cellar/cowsay/3.03/share/cows/ | wc -l\\\`) ))\` |  head -1` | toilet --gay -f term
-        }
-        if which fortune cowsay >/dev/null; then
-            (afplay $HOME/start_up.mp3 &)
-            echo $(date +%Y\ %m\ %d\ %H:%M:%S) | toilet --gay -f term
-            while :
-            do
-                random_cowsay 2>/dev/null && break
-            done
-        fi && unset -f random_cowsay
+        
+        # go
+        export GOROOT=/usr/local/opt/go/libexec
+        export GOPATH=$HOME/Desktop/go
+        export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+ 
+        # NeoCowsay using fortune
+        fortune -s -n 100 | cowsay --rainbow --bold --random
+        # (afplay start_up.mp3&)
 
         PROMPT="%n@%m%  %F{red}[%f%~%F{red}]%f %# "
         # 検索サイト クエリ で検索可能
@@ -94,7 +92,7 @@ case ${OSTYPE} in
             gls -aG -F -T 0 --color=auto
             print -l $PWD ${(u)dirstack} > $DIRSTACKFILE
         }
-
+        alias ll='ls -al'
         # 補間
         plugins=(github cpanm brew ps)
         fpath=(/path/to/homebrew/share/zsh-completions $fpath)
@@ -105,15 +103,10 @@ case ${OSTYPE} in
         if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
         export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
-        # go
-        export GOROOT=/usr/local/opt/go/libexec
-        export GOPATH=$HOME/Desktop/go
-        export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-
+       
         # openssl
         export OPENSSL_INCLUDE="/usr/local/opt/openssl/include"
         export OPENSSL_LIB="/usr/local/opt/openssl/lib"
-
         # sublime-text3
         # export PATH=/Applications/Sublime\ Text.app/Contents/SharedSupport/bin:$PATH
 
@@ -122,13 +115,15 @@ case ${OSTYPE} in
         alias objdump='gobjdump' # objdump
         alias man="env LANG=C man" # man
         alias readelf='greadelf' # readelf
+        alias gti='git'
         
         alias subl='reattach-to-user-namespace subl' # subl for tmux
+        alias code='reattach-to-user-namespace /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code' # code for tmux
 
         # suffix aliases
         alias -s {pdf,png,jpg,bmp,PDF,PNG,JPG,BMP}='open -a Preview' # like ./filename.pdf
         alias -s html='open -a Google\ Chrome' # like ./page.html
-
+        export DYLD_LIBRARY_PATH=$GOPATH/src/github.com/cloudson/gitql/libgit2/install/lib
         ;;
     linux*)
         # For linux(Debian)
@@ -183,7 +178,8 @@ if which peco >/dev/null; then
     fi
 
     function prkill() {
-        ps aux | peco | awk '{print $2}' | xargs kill -15
+        # ps aux | peco | awk '{print $2}' | xargs kill -15
+        ps aux | peco | awk '{print $2}' | xargs kill -9
     }
 
     function exec_peco_history() {
@@ -196,3 +192,8 @@ if which peco >/dev/null; then
 fi
 
 export COVERALLS_TOKEN=""
+export LDAP_HOST="127.0.0.1"
+export LDAP_MANAGER_PASSWORD="horizen-of-akatsuki"
+export DB_HOST="127.0.0.1"
+export DB_USER_NAME="hibiki"
+export DB_USER_PASSWORD="sixth-destroyer-squadron"
