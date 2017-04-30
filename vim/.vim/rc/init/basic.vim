@@ -18,6 +18,7 @@ set ignorecase
 set smartcase
 set wrapscan
 set hlsearch
+nnoremap <ESC><ESC> :<C-u>nohlsearch<CR>
 
 " Edit
 set autoindent
