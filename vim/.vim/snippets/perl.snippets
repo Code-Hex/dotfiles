@@ -83,8 +83,25 @@ snippet cl
 	sub new {
 		my $class = shift;
 		$class = ref $class if ref $class;
-		my $self = bless {}, $class;
-		$self;
+		return bless {}, $class;
 	}
 	
 	1;${3}
+# slurp
+snippet slurp
+    do { local $/; <${1:filehandle}> };
+#has
+snippet has
+    has ${1:member} => (
+        is  => '${2:writability}',
+        isa => '${3:type}',
+    );
+# Mouse
+snippet mouse
+
+    use Mouse;
+    
+    ${1:code}
+
+    no Mouse;
+    __PACKAGE__->meta->make_immutable;

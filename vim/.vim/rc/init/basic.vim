@@ -10,6 +10,7 @@ set ttymouse=xterm2
 " color
 syntax enable
 colorscheme molokai
+" colorscheme spring-night
 let g:molokai_original = 1
 " let g:rehash256 = 1
 
@@ -44,7 +45,7 @@ filetype plugin indent on
 
 
 " MacのClipBoardと共有する
-set clipboard+=unnamed
+set clipboard=unnamed,autoselect
 
 " brewでインストールした専用にdeleteキー対応をしておく
 set backspace=indent,eol,start

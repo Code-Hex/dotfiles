@@ -28,6 +28,9 @@ hook_add = 'nnoremap <silent><C-e> :NERDTreeToggle<CR>'
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
+repo = 'godlygeek/tabular'
+
+[[plugins]]
 repo = 'elzr/vim-json'
 on_ft = 'json'
 
