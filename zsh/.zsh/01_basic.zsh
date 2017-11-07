@@ -2,11 +2,11 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
-autoload -Uz colors
-colors
+autoload -Uz colors; colors
 
-autoload -U compinit
-compinit
+autoload -U compinit; compinit
+
+bindkey -e
 
 setopt extended_glob
 setopt no_beep
@@ -23,3 +23,6 @@ setopt hist_ignore_space
 setopt hist_reduce_blanks
 setopt auto_menu
 setopt prompt_subst
+
+zstyle ':completion:*' menu select interactive
+setopt menu_complete
