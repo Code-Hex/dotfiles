@@ -5,10 +5,14 @@ set e
 ln -sf $(pwd)/hg/.hgrc $HOME
 ln -sf $(pwd)/tmux/.tmux.conf $HOME
 ln -sf $(pwd)/peco/.peco $HOME
+
 ln -sf $(pwd)/vim/.vimrc $HOME
 ln -sf $(pwd)/vim/.vim $HOME
+
 ln -sf $(pwd)/zsh/.zshrc $HOME
 ln -sf $(pwd)/zsh/.zshenv $HOME
+ln -sf $(pwd)/zsh/.zsh $HOME
+
 ln -sf $(pwd)/gitconfig/.gitconfig $HOME
 ln -sf $(pwd)/gdb/.gdbinit $HOME
 ln -sf $(pwd)/iterm2/com.googlecode.iterm2.plist $HOME
