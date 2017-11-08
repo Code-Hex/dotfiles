@@ -16,5 +16,6 @@ ln -sf $(pwd)/zsh/.zsh $HOME
 ln -sf $(pwd)/gitconfig/.gitconfig $HOME
 ln -sf $(pwd)/gdb/.gdbinit $HOME
 ln -sf $(pwd)/iterm2/com.googlecode.iterm2.plist $HOME
+ln -sf $(pwd)/dircolor/.dircolor $HOME
 
 echo "user CODEHEX\npassword " > $HOME/.pause
