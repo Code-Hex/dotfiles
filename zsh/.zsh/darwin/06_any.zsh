@@ -8,17 +8,13 @@ if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
     [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
 fi
 
-eval $(gdircolors ~/dircolors.256dark) # for ls
+eval $(gdircolors $HOME/.dircolor) # for ls
 
 # alias ls='ls -aG -F -T'
 function chpwd() {
     gls -aGFT 0 --color=auto
     print -l $PWD ${(u)dirstack} > $DIRSTACKFILE
 }
-
-
-
-
 
 eval "$(direnv hook zsh)"
 

@@ -6,6 +6,7 @@ autoload -Uz colors; colors
 
 autoload -U compinit; compinit
 
+# Prevent insert key from changing input mode.
 bindkey -e
 
 setopt extended_glob
@@ -26,3 +27,8 @@ setopt prompt_subst
 
 zstyle ':completion:*' menu select interactive
 setopt menu_complete
+
+# Control-x-e to open current line in $EDITOR, awesome when writting functions or editing multiline commands.
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
