@@ -21,3 +21,7 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # nodebrew
 export NODEBREW_ROOT=/usr/local/var/nodebrew
 export PATH=$HOME/.nodebrew/current/bin:$PATH
+export PATH=/usr/local/opt/llvm/bin:$PATH
+
+# rust
+export PATH=$HOME/.cargo/bin:$PATH

@@ -57,3 +57,26 @@ function run_under_tmux() {
 }
 
 irc() { run_under_tmux "irssi"; }
+
+
+# Insert path selected with fzy into command line on ^F press.
+_select_path_with_fzy() {
+    local selected_path
+    if ! command -v fzy >/dev/null 2>&1; then
+        echo 'No fzy binary found in $PATH.'
+        return 1
+    fi
+    echo
+    print -nr "${zle_bracketed_paste[2]}" >/dev/tty
+    {
+        selected_path="$(find -L . | cut -c 3- | fzy)"
+    } always {
+        print -nr "${zle_bracketed_paste[1]}" >/dev/tty
+    }
+    if [ "${selected_path}" ]; then
+        LBUFFER+="${(q)selected_path}"
+    fi
+    zle reset-prompt
+}
+zle -N _select_path_with_fzy
+bindkey "^F" _select_path_with_fzy

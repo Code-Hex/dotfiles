@@ -3,7 +3,9 @@ if which peco >/dev/null; then
         # ps aux | peco | awk '{print $2}' | xargs kill -15
         ps aux | peco | awk '{print $2}' | xargs kill -9
     }
-
+    function prterm() {
+        ps aux | peco | awk '{print $2}' | xargs kill -15
+    }
     function exec_peco_history() {
         BUFFER=$(history -n 1 | tail -r | awk '!a[$0]++' | peco)
         CURSOR=$#BUFFER
