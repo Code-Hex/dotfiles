@@ -10,11 +10,22 @@
     clean = git-lfs clean %f
     smudge = git-lfs smudge %f
     required = true
-[github]
-    user = Code-Hex
 [http]
 	sslVerify = true
 [alias]
+    l = log --pretty=oneline -n 20 --graph --abbrev-commit
+    s = status -s
+    tags = tag -l
+	branches = branch -a
+	remotes = remote -v
+    sh = show --color-words='[^[:space:]]
+    contributors = shortlog --summary --numbered
     dsf = "!f() { [ -z \"$GIT_PREFIX\" ] || cd \"$GIT_PREFIX\" && git diff --color \"$@\" | diff-so-fancy  | less --tabs=4 -RFX; }; f"
     restore = "!f() { git checkout \"$(git log --format='%h:%ar' -- \"$@\" | head -n 1 | cut -d: -f 1,1)^\" -- \"$@\"; }; f"
     forest = "!f() { git-foresta --all $@ | less -RS; }; f"
+    ff = "!f() { git rev-list --all --objects | sed -n $(git rev-list --objects --all | cut -f1 -d' ' | git cat-file --batch-check | grep blob | sort -n -k 3 | tail -n40 | while read hash type size; do echo -n \"-e s/$hash/$size/p \"; done) | sort -n -k1; }; f"
+[ghq]
+    # root = ~/.ghq
+    root = ~/Desktop/go/src
+[github]
+	user = Code-Hex
