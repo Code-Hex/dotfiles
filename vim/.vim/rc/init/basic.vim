@@ -18,7 +18,7 @@ let g:molokai_original = 1
 set ignorecase
 set smartcase
 set wrapscan
-set hlsearch
+set incsearch hlsearch
 nnoremap <ESC><ESC> :<C-u>nohlsearch<CR>
 
 " Edit
@@ -59,3 +59,8 @@ imap <C-l> <Right>
 " jjでインサートモードからコマンドモード
 inoremap <silent> jj <ESC>
 
+" skelton
+augroup SkeleatonAu
+    autocmd!
+    autocmd BufNewFile *.pl 0r ~/.vim/skeltons/skelton.pl
+augroup END

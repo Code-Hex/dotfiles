@@ -29,11 +29,15 @@ endfunction"}}}
 augroup MyAutoCmd
   autocmd!
   " Perl6
-  autocmd BufRead,BufNewfile *.p6 setf perl6
+  autocmd BufRead,BufNewfile *.p6     setf perl6
   " Perl5
-  autocmd BufRead,BufNewfile *.p5 setf perl
+  autocmd BufRead,BufNewfile *.p5     setf perl
   autocmd BufNewFile,BufRead *.psgi   set filetype=perl
   autocmd BufNewFile,BufRead *.t      set filetype=perl
+
+  " incsearch
+  autocmd CmdlineEnter [/\?] set hlsearch
+  autocmd CmdlineLeave [/\?] set nohlsearch
 augroup END
 
 if has('vim_starting')
@@ -51,5 +55,7 @@ if !has('vim_starting')
   call dein#call_hook('post_source')
 
   syntax enable
-  filetype plugin indent on
+  filetype on
+  filetype plugin on
+  filetype indent on
 endif

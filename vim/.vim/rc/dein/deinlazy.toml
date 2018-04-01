@@ -51,6 +51,9 @@ hook_add = 'nmap <silent> <Leader>r <Plug>(quickrun)'
 [[plugins]]
 repo = 'ctrlpvim/ctrlp.vim'
 
+[[plugins]]
+repo = 'c9s/perlomni.vim'
+on_ft = ['pl', 'pm', 't']
 
 [[plugins]]
 repo = 'fatih/vim-go'
