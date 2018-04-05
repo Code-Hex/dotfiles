@@ -1,10 +1,15 @@
+function exists() {
+    type $1 > /dev/null
+    [ $? = 0 ]
+}
+
 # plenv
-if which plenv >/dev/null; then
+if exists plenv; then
     eval "$(plenv init -)"
 fi
 
 # pyenv
-if which pyenv >/dev/null; then
+if exists pyenv; then
     eval "$(pyenv init -)"
     if which pyenv-virtualenv-init > /dev/null; then
         eval "$(pyenv virtualenv-init -)"
@@ -13,7 +18,13 @@ if which pyenv >/dev/null; then
 fi
 
 # rbenv
-if which rbenv >/dev/null; then
+if exists rbenv; then
     eval "$(rbenv init -)"
 fi
+
+# phpenv
+if exists phpenv; then
+    eval "$(phpenv init -)"
+fi
+
 
