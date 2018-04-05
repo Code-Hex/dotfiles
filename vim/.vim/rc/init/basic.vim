@@ -20,6 +20,8 @@ set smartcase
 set wrapscan
 set incsearch hlsearch
 nnoremap <ESC><ESC> :<C-u>nohlsearch<CR>
+cnoremap <C-n> <C-g>
+cnoremap <C-b> <C-t>
 
 " Edit
 set autoindent
