@@ -13,7 +13,7 @@
 [http]
 	sslVerify = true
 [alias]
-    l = log --pretty=oneline -n 20 --graph --abbrev-commit
+    l = log --graph --decorate --pretty=oneline --abbrev-commit
     s = status -s
     tags = tag -l
 	branches = branch -a
