@@ -17,6 +17,7 @@
     s = status -s
     tags = tag -l
     br = branch --sort=-authordate
+    b = rev-parse --abbrev-ref HEAD
 	branches = branch -a --sort=-authordate
 	remotes = remote -v
     sh = show --color-words='[^[:space:]]'
