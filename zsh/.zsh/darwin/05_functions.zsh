@@ -1,3 +1,7 @@
+function base64url() {
+    openssl base64 | tr '+/' '-_' | tr -d '='
+}
+
 function confirm() {
     local answer
     echo -ne "zsh: sure you want to run '$fg[yellow]$*$reset_color' [yN]? "
@@ -80,3 +84,4 @@ _select_path_with_fzy() {
 }
 zle -N _select_path_with_fzy
 bindkey "^F" _select_path_with_fzy
+
