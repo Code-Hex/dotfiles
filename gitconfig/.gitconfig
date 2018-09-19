@@ -1,9 +1,10 @@
 [user]
-    name = K
+    name = Kei Kamikawa
     email = x00.x7f@gmail.com
 [core]
-    editor = vim
+	editor = vim
 #    editor = subl -w
+    excludesfile = ~/.gitignore_global
 [color]
     ui = true
 [filter "lfs"]
@@ -26,8 +27,14 @@
     restore = "!f() { git checkout \"$(git log --format='%h:%ar' -- \"$@\" | head -n 1 | cut -d: -f 1,1)^\" -- \"$@\"; }; f"
     forest = "!f() { git-foresta --all $@ | less -RS; }; f"
     ff = "!f() { git rev-list --all --objects | sed -n $(git rev-list --objects --all | cut -f1 -d' ' | git cat-file --batch-check | grep blob | sort -n -k 3 | tail -n40 | while read hash type size; do echo -n \"-e s/$hash/$size/p \"; done) | sort -n -k1; }; f"
+[diff]
+    tool = default-difftool
+[difftool "default-difftool"]
+    cmd = "/Applications/Visual\\ Studio\\ Code.app/Contents/Resources/app/bin/code --wait --diff $LOCAL $REMOTE"
+    prompt = false
 [ghq]
     # root = ~/.ghq
     root = ~/go/src
 [github]
 	user = Code-Hex
+
