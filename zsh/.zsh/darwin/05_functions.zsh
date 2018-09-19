@@ -85,3 +85,6 @@ _select_path_with_fzy() {
 zle -N _select_path_with_fzy
 bindkey "^F" _select_path_with_fzy
 
+
+dict () { open dict:///"$@"; }
+
