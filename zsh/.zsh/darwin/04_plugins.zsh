@@ -25,6 +25,8 @@ function _zplug_plugin_load() {
 
 
 # autocompletion
+fpath=(/Users/codehex/.zsh/darwin/completions $fpath)
+
 plugins=(github cpanm brew ps vagrant)
 if [ -e /usr/local/share/zsh-completions ]; then
     fpath=(/usr/local/share/zsh-completions $fpath)
