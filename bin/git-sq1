@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+
+local arg="$@"
+
+if [[ $arg = '' ]]; then
+    echo "You should specify the target branch name"
+    exit 1
+fi
+
+local tmpbr="tmpbr"
+local nowbr=$(git rev-parse --abbrev-ref HEAD)
+
+git checkout master
+git pull origin master
+
+git checkout -b $tmpbr
+if [[ $? != 0 ]]; then
+    git branch -D $tmpbr
+    git checkout -b $tmpbr
+fi
+
+git merge --squash $arg
+if [[ $? != 0 ]]; then
+    git checkout $nowbr
+    git branch -D $tmpbr
+fi
+
+git checkout $arg
+git branch -m $arg "${arg}-backup"
+git checkout $tmpbr
+git branch -m $rmpbr $arg;
