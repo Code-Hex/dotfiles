@@ -29,8 +29,8 @@ set showmatch
 set smartindent
 set cindent
 
-"set paste
-set cursorline
+" set paste
+" set cursorline
 
 " Tab
 set tabstop=4
@@ -66,3 +66,7 @@ augroup SkeleatonAu
     autocmd!
     autocmd BufNewFile *.pl 0r ~/.vim/skeltons/skelton.pl
 augroup END
+
+
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)

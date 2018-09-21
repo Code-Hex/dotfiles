@@ -37,3 +37,6 @@ on_ft = 'json'
 [[plugins]]
 repo = 'thinca/vim-ft-diff_fold'
 on_ft = 'diff'
+
+[[plugins]]
+repo = 'rhysd/accelerated-jk'
