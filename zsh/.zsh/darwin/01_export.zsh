@@ -5,7 +5,7 @@ export PATH=$HOME/bin:$PATH
 
 # go
 export GOROOT=/usr/local/opt/go/libexec
-export GOPATH=$HOME/Desktop/go
+export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 # postgresql
