@@ -15,3 +15,13 @@ function clr() {
     done
     echo
 }
+
+
+function g () {
+    if [[ $# > 0 ]]
+    then
+            git $@
+    else
+            git s
+    fi
+}
