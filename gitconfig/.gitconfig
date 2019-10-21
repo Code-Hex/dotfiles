@@ -1,6 +1,7 @@
 [user]
 	name = Kei Kamikawa
-	email = x00.x7f@gmail.com
+	email = code-hex@users.noreply.github.com
+	signingkey = D8AF9E180B73E146
 [core]
 	editor = vim
 #    editor = subl -w
@@ -18,9 +19,11 @@
     l = log --graph --decorate --pretty=oneline --abbrev-commit
     s = status -s
     ck = checkout
-    cm = commit -m
-    pm = push origin master
-    pc = "!f() { git push origin $(git rev-parse --abbrev-ref HEAD); }; f"
+    cm = commit -S -m
+    psm = push origin master
+    psc = "!f() { git push origin $(git rev-parse --abbrev-ref HEAD); }; f"
+    plm = pull origin master
+    plc = "!f() { git pull origin $(git rev-parse --abbrev-ref HEAD); }; f"
     tags = tag -l
     br = branch --sort=-authordate
     b = rev-parse --abbrev-ref HEAD
@@ -44,3 +47,5 @@
 	user = Code-Hex
 [url "git@github.com:"]
     insteadOf = https://github.com/
+[commit]
+	gpgsign = true
