@@ -18,7 +18,7 @@
 [alias]
     l = log --graph --decorate --pretty=oneline --abbrev-commit
     s = status -s
-    ck = checkout
+    ck = "!f() { [ $# -eq 0 ] && git checkout $(git branch --sort=-authordate | perl -a -nle '$F[0] ne \"*\" and print $F[0]' | fzf) || git checkout $@; }; f"
     cm = commit -S -m
     psm = push origin master
     psc = "!f() { git push origin $(git rev-parse --abbrev-ref HEAD); }; f"
