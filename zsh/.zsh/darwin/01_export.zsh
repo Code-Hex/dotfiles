@@ -34,3 +34,6 @@ export PATH=$HOME/.cargo/bin:$PATH
 export PATH="$HOME/.phpenv/bin:$PATH"
 
 export NODEBREW_ROOT=/usr/local/var/nodebrew
+
+# google
+export PATH="$HOME/google-cloud-sdk/bin:$PATH"

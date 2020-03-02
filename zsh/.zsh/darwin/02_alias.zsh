@@ -7,7 +7,7 @@ alias objdump='gobjdump' # objdump
 alias man="env LANG=C man" # man
 alias readelf='greadelf' # readelf
 alias gti='git'
-
+alias k='kubectl'
 
 alias subl='reattach-to-user-namespace subl' # subl for tmux
 alias code='reattach-to-user-namespace /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code' # code for tmux

@@ -1,26 +1,20 @@
-function _zplug_plugin_load() {
-        export ZPLUG_HOME=/usr/local/opt/zplug
-        source $ZPLUG_HOME/init.zsh
+function _plugin_load() {
+    # zsh-syntax-highlighting
+    ZSH_HIGHLIGHT_FILE=/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    if [ -f "$ZSH_HIGHLIGHT_FILE" ]; then
+        export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
+        source $ZSH_HIGHLIGHT_FILE
+    else
+        echo 'You should run: "brew install zsh-syntax-highlighting"'
+    fi
 
-        zplug "b4b4r07/enhancd", use:init.sh
-        if zplug check "b4b4r07/enhancd"; then
-            export ENHANCD_FILTER=fzy
-            export ENHANCD_DOT_SHOW_FULLPATH=1
-            export ENHANCD_DOT_ARG=...
-        fi
-
-        zplug "zsh-users/zsh-autosuggestions"
-        zplug "zsh-users/zsh-syntax-highlighting", defer:2
-
-
-        # Install plugins if there are plugins that have not been installed
-        if ! zplug check --verbose; then
-            printf "Install? [y/N]: "
-            if read -q; then
-                echo; zplug install
-            fi
-        fi
-        zplug load
+    # zsh-autosuggestions
+    ZSH_AUTO_SUGGESTION_FILE=/usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    if [ -f "$ZSH_AUTO_SUGGESTION_FILE" ]; then
+        source $ZSH_AUTO_SUGGESTION_FILE
+    else
+        echo 'You should run: "brew install zsh-autosuggestions"'
+    fi
 }
 
 
@@ -32,4 +26,4 @@ if [ -e /usr/local/share/zsh-completions ]; then
     fpath=(/usr/local/share/zsh-completions $fpath)
 fi
 
-_zplug_plugin_load
+_plugin_load
