@@ -18,7 +18,7 @@
 [alias]
     l = log --graph --decorate --pretty=oneline --abbrev-commit
     s = status -s
-    ck = "!f() { [ $# -eq 0 ] && git checkout $(git branch --sort=-authordate | perl -a -nle '$F[0] ne \"*\" and print $F[0]' | fzf) || git checkout $@; }; f"
+    ck = "!f() { [ $# -eq 0 ] && git checkout $(git branch --sort=-authordate | perl -a -nle '$F[0] ne \"*\" and print $F[0]' | fzf --height 40%) || git checkout $@; }; f"
     cm = commit -S -m
     psm = push origin master
     psc = "!f() { git push origin $(git rev-parse --abbrev-ref HEAD); }; f"
@@ -36,6 +36,7 @@
     forest = "!f() { git-foresta --all $@ | less -RS; }; f"
     ff = "!f() { git rev-list --all --objects | sed -n $(git rev-list --objects --all | cut -f1 -d' ' | git cat-file --batch-check | grep blob | sort -n -k 3 | tail -n40 | while read hash type size; do echo -n \"-e s/$hash/$size/p \"; done) | sort -n -k1; }; f"
     chmod = "!f(){ mode=$1; shift; git update-index --add --chmod=${mode} \"$*\"; }; f"
+    review = "dsf origin/master..."
 [diff]
     tool = default-difftool
 [difftool "default-difftool"]
