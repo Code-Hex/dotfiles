@@ -11,3 +11,6 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 
+# vim
+let $MYVIMRC="$XDG_CONFIG_HOME/vim/init.vim" | source $MYVIMRC
+
