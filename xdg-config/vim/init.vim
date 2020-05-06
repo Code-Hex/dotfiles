@@ -22,7 +22,7 @@ set nrformats-=octal
 "ファイル切替時にファイルを隠す
 set hidden
 "日本語ヘルプを優先的に検索
-set helplang=ja,en
+" set helplang=ja,en
 " wrap if long lines
 set wrap
 
@@ -38,21 +38,21 @@ if &compatible
 endif
 
 " Required:
-set runtimepath+=/home/codehex/.cache/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
 
 " Required:
-if dein#load_state('/home/codehex/.cache/dein')
-  call dein#begin('/home/codehex/.cache/dein')
+if dein#load_state($HOME.'/.cache/dein')
+  call dein#begin($HOME.'/.cache/dein')
 
   " Let dein manage dein
   " Required:
-  call dein#add('/home/codehex/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add($HOME.'/.cache/dein/repos/github.com/Shougo/dein.vim')
 
   " Add or remove your plugins here like this:
   "call dein#add('Shougo/neosnippet.vim')
   "call dein#add('Shougo/neosnippet-snippets')
-  let s:plugin = '~/.config/vim/dein/plugins.toml'
-  let s:lazy_plugin = '~/.config/vim/dein/lazy.toml'
+  let s:plugin = $XDG_CONFIG_HOME.'/vim/dein/plugins.toml'
+  let s:lazy_plugin = $XDG_CONFIG_HOME.'/vim/dein/lazy.toml'
   call dein#load_toml(s:plugin, {'lazy': 0})
   call dein#load_toml(s:lazy_plugin, {'lazy': 1})
 
