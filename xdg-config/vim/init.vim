@@ -11,6 +11,9 @@ if has('termguicolors')
   set termguicolors
 endif
 
+" sharing clipboard
+set clipboard=unnamed
+
 " 行番号を表示する
 set number
 set splitright
@@ -152,4 +155,26 @@ imap <C-h> <Left>
 imap <C-j> <Down>
 imap <C-k> <Up>
 imap <C-l> <Right>
+
+" vim8-bracketed-paste-mode-tmux
+" https://github.com/ConradIrwin/vim-bracketed-paste/issues/32#issuecomment-331650794
+let s:screen  = &term =~ 'screen'
+let s:xterm   = &term =~ 'xterm'
+
+if s:screen || s:xterm
+	" enable bracketed paste mode on entering Vim
+	let &t_ti .= "\e[?2004h"
+	" disable bracketed paste mode on leaving Vim
+	let &t_te = "\e[?2004l" . &t_te
+    function! XTermPasteBegin(ret)
+        set pastetoggle=<Esc>[201~
+        set paste
+        return a:ret
+    endfunction
+    map <expr> <Esc>[200~ XTermPasteBegin("i")
+    imap <expr> <Esc>[200~ XTermPasteBegin("")
+    vmap <expr> <Esc>[200~ XTermPasteBegin("c")
+    cmap <Esc>[200~ <nop>
+    cmap <Esc>[201~ <nop>
+endif
 
