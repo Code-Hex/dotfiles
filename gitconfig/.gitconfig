@@ -5,7 +5,7 @@
 [core]
 	editor = vim
 #    editor = subl -w
-    excludesfile = ~/.gitignore_global
+	excludesfile = ~/.gitignore_global
 [color]
     ui = true
 [filter "lfs"]
