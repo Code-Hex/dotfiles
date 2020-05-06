@@ -6,8 +6,8 @@ ln -sf $(pwd)/hg/.hgrc $HOME
 ln -sf $(pwd)/tmux/.tmux.conf $HOME
 ln -sf $(pwd)/peco/.peco $HOME
 
-ln -sf $(pwd)/vim/.vimrc $HOME
-ln -sf $(pwd)/vim/.vim $HOME
+mkdir -p $HOME/.config
+ln -sf $(pwd)/xdg-config/vim $HOME/.config/vim
 
 ln -sf $(pwd)/zsh/.zshrc $HOME
 ln -sf $(pwd)/zsh/.zshenv $HOME
