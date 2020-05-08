@@ -116,13 +116,18 @@ inoremap jk <Esc>
 nnoremap <Leader>w <C-w>
 " Fast moving back window
 noremap <Leader><Leader> <C-w>p
-noremap <Leader>: :Term<CR>
-noremap <Leader>; :VTerm<CR>
-noremap <C-a>\| :VTerm<CR>
-noremap <C-a>- :Term<CR>
 
 " Open terminal on new tab
-nnoremap <c-a>c :tab term<CR>
+nnoremap <C-a>c :tab term<CR>
+tnoremap <C-a>c <C-\><C-n>:tab term<CR>
+noremap <C-a>\| :VTerm<CR>
+noremap <C-a>- :Term<CR>
+tnoremap <C-a>\| <C-\><C-n>:VTerm<CR>
+tnoremap <C-a>- <C-\><C-n>:Term<CR>
+
+" Move tab on terminal mode
+tnoremap <S-Left> <C-\><C-n>:tabprevious<CR>
+tnoremap <S-Right> <C-\><C-n>:tabnext<CR>
 
 " Go to tab by number
 " https://superuser.com/a/675119
@@ -138,8 +143,8 @@ noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 
 " Move tab
-nnoremap <C-Left> :tabprevious<CR>
-nnoremap <C-Right> :tabnext<CR>
+nnoremap <S-Left> :tabprevious<CR>
+nnoremap <S-Right> :tabnext<CR>
 
 " Search
 set ignorecase
