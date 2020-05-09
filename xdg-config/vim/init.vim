@@ -82,10 +82,10 @@ set splitbelow
 " turn terminal to normal mode with escape
 tnoremap <Esc> <C-\><C-n>
 " open terminal on ctrl+n
-function! s:openTerminal(vertical)
+func! s:openTerminal(vertical)
   exe a:vertical ? 'vert term' : 'term'
   exe 'startinsert'
-endfunction
+endfunc
 command! -nargs=* Term call  s:openTerminal(0)
 command! -nargs=* VTerm call s:openTerminal(1)
 
@@ -96,6 +96,12 @@ func SendToTerm(what)
   return ''
 endfunc
 
+" for terminal API
+func Tapi_open(bufnum, arglist)
+  for arg in a:arglist
+    exe 'tabnew' arg
+  endfor
+endfunc
 
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
