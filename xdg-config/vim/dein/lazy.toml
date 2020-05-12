@@ -1,1 +1,35 @@
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = 'go'
+
+hook_add="""
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+let g:go_code_completion_enabled = 0
+let g:go_gopls_enabled = 0
+
+" testing
+" Show the name of each failed test before the errors and logs output by the test.
+let g:go_test_show_name = 1
+let g:go_test_timeout= '10s'
+
+" playground
+let g:go_play_open_browser = 0
+
+" goformat
+let g:go_fmt_command = 'goimports'
+
+" godoc
+let g:go_doc_url = 'https://pkg.go.dev'
+
+" metalinter
+let g:go_metalinter_command = "golangci-lint"
+let g:go_metalinter_enabled = []
+let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
+
+" Only useful if `ctrlp.vim`, `unite.vim`, `denite.nvim` or `fzf` are installed.
+" This sets which declarations to show for |:GoDecls|
+let g:go_decls_includes = 'func,type'
+"""
+
 
