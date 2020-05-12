@@ -4,8 +4,8 @@ set runtimepath+=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after
 let $MYVIMRC="$XDG_CONFIG_HOME/vim/init.vim"
 
 " use english
-set langmenu=en_US
-let $LANG = 'en_US'
+set langmenu=en_US.UTF-8
+let $LANG = 'en_US.UTF-8'
 
 " truecolor
 " For Vim 7.4.1799 or later
