@@ -70,7 +70,7 @@ endif
 
 " Required:
 filetype plugin indent on
-syntax enable
+syntax on
 
 " If you want to install not installed plugins on startup.
 if dein#check_install()
@@ -122,6 +122,7 @@ let g:mapleader = ","
 noremap <Leader>q :quit!<CR>
 " Fast escape
 inoremap jk <Esc>
+xnoremap jk <Esc>
 " Fast moving window
 nnoremap <Leader>w <C-w>
 " Fast moving back window
