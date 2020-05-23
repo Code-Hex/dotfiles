@@ -100,10 +100,25 @@ func SendToTerm(what)
   return ''
 endfunc
 
+
+" https://github.com/google/vim-maktaba/blob/f630b985facf383ae1657d569ff69582224cca04/autoload/maktaba/path.vim#L9
+func s:pathJoin(left, right)
+  if a:left =~# '\v\\@<!%(\\\\)*\zs/$'
+    return a:left . a:right
+  elseif empty(a:left)
+    return a:right
+  endif
+  return a:left . '/' . a:right
+endfunc
+
 " for terminal API
 func Tapi_open(bufnum, arglist)
-  for arg in a:arglist
-    exe 'tabnew' arg
+  if len(a:arglist) < 2
+    echo 'need at least 2'
+  endif
+  let currentdir = a:arglist[0]
+  for arg in a:arglist[1:]
+    exe 'tabnew' s:pathJoin(currentdir, arg)
   endfor
 endfunc
 
