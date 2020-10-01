@@ -88,3 +88,16 @@ bindkey "^F" _select_path_with_fzy
 
 dict () { open dict:///"$@"; }
 
+kg () {
+    if [ -z "$1" ]; then
+        echo 'error: Required resource not specified.'
+        echo 'kg <resource> <namespace>'
+        return 1
+    fi
+    if [ -z "$2" ]; then
+        echo 'error: Required namespace not specified.'
+        echo 'kg <resource> <namespace>'
+        return 1
+    fi
+    kubectl get $1 -n $2 --no-headers | perl -a -nle 'print $F[0]' | fzf
+}

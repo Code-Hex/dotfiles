@@ -17,6 +17,8 @@ function _plugin_load() {
     fi
 }
 
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # autocompletion
 fpath=(/Users/codehex/.zsh/darwin/completions $fpath)
@@ -26,4 +28,4 @@ if [ -e /usr/local/share/zsh-completions ]; then
     fpath=(/usr/local/share/zsh-completions $fpath)
 fi
 
-_plugin_load
+#_zplug_plugin_load

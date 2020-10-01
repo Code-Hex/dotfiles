@@ -9,7 +9,7 @@ export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 # postgresql
-export PGDATA=/usr/local/var/postgres 
+export PGDATA=/usr/local/var/postgres
 
 # openssl
 export OPENSSL_INCLUDE="/usr/local/opt/openssl/include"
@@ -37,3 +37,10 @@ export NODEBREW_ROOT=/usr/local/var/nodebrew
 
 # google
 export PATH="$HOME/google-cloud-sdk/bin:$PATH"
+
+# lldb
+export LLDB_DEBUGSERVER_PATH=/Library/Developer/CommandLineTools/Library/PrivateFrameworks/LLDB.framework/Versions/A/Resources/debugserver
+
+# deno
+export DENO_INSTALL="$HOME/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
