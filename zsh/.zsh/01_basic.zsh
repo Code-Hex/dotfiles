@@ -4,7 +4,7 @@ SAVEHIST=1000000
 
 autoload -Uz colors; colors
 
-autoload -U compinit; compinit
+autoload -Uz compinit; compinit
 
 # Prevent insert key from changing input mode.
 bindkey -e

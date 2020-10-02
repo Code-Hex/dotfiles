@@ -5,8 +5,12 @@ alias objdump='gobjdump' # objdump
 alias man="env LANG=C man" # man
 alias readelf='greadelf' # readelf
 alias gti='git'
+
+source <(kubectl completion zsh)
 alias kubectl='kubectl.1.17'
+complete -F __start_kubectl kubectl.1.17
 alias k='kubectl'
+complete -F __start_kubectl k
 
 if which lld >/dev/null; then
     alias ld=lld
